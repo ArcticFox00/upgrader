@@ -500,7 +500,12 @@ class Upgrader with WidgetsBindingObserver {
 
   /// Launch the app store from the app store listing URL.
   void sendUserToAppStore() async {
-    final appStoreListingURL = versionInfo?.appStoreListingURL;
+    var prefs = await SharedPreferences.getInstance();
+    if(versionInfo?.appStoreListingURL != null){
+      prefs.setString("app_store_url", versionInfo?.appStoreListingURL);
+    }
+    
+    final appStoreListingURL = await prefs.getString("app_store_url");
     if (appStoreListingURL == null || appStoreListingURL.isEmpty) {
       if (state.debugLogging) {
         print('upgrader: empty appStoreListingURL');
