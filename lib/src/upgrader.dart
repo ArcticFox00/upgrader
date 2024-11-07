@@ -502,7 +502,7 @@ class Upgrader with WidgetsBindingObserver {
   void sendUserToAppStore() async {
     var prefs = await SharedPreferences.getInstance();
     if(versionInfo?.appStoreListingURL != null){
-      prefs.setString("app_store_url", versionInfo?.appStoreListingURL);
+      prefs.setString("app_store_url", versionInfo?.appStoreListingURL ?? "");
     }
     
     final appStoreListingURL = await prefs.getString("app_store_url");
