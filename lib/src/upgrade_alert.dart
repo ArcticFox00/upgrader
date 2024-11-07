@@ -232,14 +232,7 @@ class UpgradeAlertState extends State<UpgradeAlert> {
       barrierDismissible: barrierDismissible,
       context: context,
       builder: (BuildContext context) {
-        return PopScope(
-          canPop: false,
-          onPopInvokedWithResult: (didPop, result) {
-            if (widget.upgrader.state.debugLogging) {
-              print('upgrader: showTheDialog onPopInvoked: $didPop');
-            }
-          },
-          child: alertDialog(
+        return child: alertDialog(
             key,
             title ?? '',
             message,
@@ -247,8 +240,7 @@ class UpgradeAlertState extends State<UpgradeAlert> {
             context,
             widget.dialogStyle == UpgradeDialogStyle.cupertino,
             messages,
-          ),
-        );
+          );
       },
     );
   }
