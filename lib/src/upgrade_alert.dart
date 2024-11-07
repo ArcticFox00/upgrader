@@ -232,7 +232,7 @@ class UpgradeAlertState extends State<UpgradeAlert> {
       barrierDismissible: barrierDismissible,
       context: context,
       builder: (BuildContext context) {
-        return child: alertDialog(
+        return alertDialog(
             key,
             title ?? '',
             message,
