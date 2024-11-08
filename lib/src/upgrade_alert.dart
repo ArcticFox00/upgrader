@@ -203,7 +203,10 @@ class UpgradeAlertState extends State<UpgradeAlert> {
     }
   }
 
-  void popNavigator(BuildContext context) {}
+  void popNavigator(BuildContext context) {
+    Navigator.of(context).pop();
+    displayed = false;
+  }
 
   bool get shouldDisplayReleaseNotes =>
       widget.showReleaseNotes &&
@@ -232,7 +235,14 @@ class UpgradeAlertState extends State<UpgradeAlert> {
       barrierDismissible: barrierDismissible,
       context: context,
       builder: (BuildContext context) {
-        return alertDialog(
+        return PopScope(
+          canPop: onCanPop(),
+          onPopInvokedWithResult: (didPop, result) {
+            if (widget.upgrader.state.debugLogging) {
+              print('upgrader: showTheDialog onPopInvoked: $didPop');
+            }
+          },
+          child: alertDialog(
             key,
             title ?? '',
             message,
@@ -240,7 +250,8 @@ class UpgradeAlertState extends State<UpgradeAlert> {
             context,
             widget.dialogStyle == UpgradeDialogStyle.cupertino,
             messages,
-          );
+          ),
+        );
       },
     );
   }
